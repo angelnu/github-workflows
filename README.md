@@ -10,6 +10,9 @@ A collection of reusable GitHub workflows
   2. Disable webhooks
 2. Create a private key and save it in Bitwarden (or any other secret manager)
 3. Remember the App ID
+4. Get the User ID of the app by visting: https://api.github.com/users/angelnu-bot[bot]
+   - this is needed for the commit email: `<app user id>+myciapp[bot]@users.noreply.github.com`
+   - app ID and app user ID are NOT the same
 
 ### Adding to a repository
 ### Set secrets
