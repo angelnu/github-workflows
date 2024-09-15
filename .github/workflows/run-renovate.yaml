@@ -75,6 +75,28 @@ jobs:
           name: ${{ env.cache_key }}
           path: cache-download
 
+      # Using tar to compress and extract the archive isn't strictly necessary, but it can improve
+      # performance significantly when uploading artifacts with lots of files.
+      - name: Extract renovate cache
+        run: |
+          set -x
+          # Skip if no cache is set, such as the first time it runs.
+          if [ ! -d cache-download ] ; then
+            echo "No cache found."
+            exit 0
+          fi
+
+          # Make sure the directory exists, and extract it there. Note that it's nested in the download directory.
+          mkdir -p $cache_dir
+          tar -xzf cache-download/$cache_archive -C $cache_dir
+
+          # Unfortunately, the permissions expected within renovate's docker container
+          # are different than the ones given after the cache is restored. We have to
+          # change ownership to solve this. We also need to have correct permissions in
+          # the entire /tmp/renovate tree, not just the section with the repo cache.
+          sudo chown -R runneradmin:root /tmp/renovate/
+          ls -R $cache_dir
+
       - name: Renovate
         uses: renovatebot/github-action@v40.2.8
         env:
