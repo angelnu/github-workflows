@@ -21,12 +21,12 @@ on:
         type: string
       repoCache:
         description: 'Reset or disable the cache?'
-        type: choice
+        type: string
         default: enabled
-        options:
-          - enabled
-          - disabled
-          - reset
+        # options:
+        #   - enabled
+        #   - disabled
+        #   - reset
     secrets:
       app_id:
         description: "App ID of the application used to generate a token"
