@@ -97,7 +97,7 @@ jobs:
           tar -czvf $cache_archive -C $cache_dir .
 
       - uses: actions/upload-artifact@v3
-        if: repoCache != 'disabled'
+        if: inputs.repoCache != 'disabled'
         with:
           name: ${{ env.cache_key }}
           path: ${{ env.cache_archive }}
