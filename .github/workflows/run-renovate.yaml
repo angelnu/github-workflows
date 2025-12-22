@@ -58,7 +58,7 @@ jobs:
           private_key: ${{ secrets.app_private_key }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: "${{ steps.generate-token.outputs.token }}"
 
